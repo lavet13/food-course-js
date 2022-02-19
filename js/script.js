@@ -190,30 +190,39 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    class HttpError extends Error {
-        constructor(response) {
-            super(`Could not fetch ${response.url}, status: ${response.status}`);
-            this.name = "HttpError";
-            this.response = response;
-        }
-    }
+    // class HttpError extends Error {
+    //     constructor(response) {
+    //         super(`Could not fetch ${response.url}, status: ${response.status}`);
+    //         this.name = "HttpError";
+    //         this.response = response;
+    //     }
+    // }
 
-    const getResource = async (url) => {
-        const res = await fetch(url);
+    // const getResource = async (url) => {
+    //     const res = await fetch(url);
 
-        if(!res.ok) {
-           throw new HttpError(res);
-        }
+    //     if(!res.ok) {
+    //        throw new HttpError(res);
+    //     }
 
-        return await res.json();
-    };
+    //     return await res.json();
+    // };
 
-    getResource('http://localhost:3000/menu')
+    // getResource('http://localhost:3000/menu')
+    //     .then(data => {
+    //         data.forEach(({img, altimg, title, descr, price}) => {
+    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    //         });
+    //     }); 
+
+
+    axios.get('http://localhost:3000/menu')
         .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => {
+            data.data.forEach(({img, altimg, title, descr, price}) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
-        }); 
+        });
+
 
     // getResource('http://localhost:3000/menu')
     //     .then(data => createCard(data));
