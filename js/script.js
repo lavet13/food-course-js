@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', () => {
 
     // Tabs
     
@@ -66,7 +66,7 @@ window.addEventListener('DOMContentLoaded', function() {
         seconds.innerHTML = 0;
     }
 
-    function getZero(num){
+    function getZero(num) {
         if (num >= 0 && num < 10) { 
             return '0' + num;
         }
@@ -218,6 +218,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     axios.get('http://localhost:3000/menu')
         .then(data => {
+            // console.log(data);
             data.data.forEach(({img, altimg, title, descr, price}) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
@@ -328,8 +329,74 @@ window.addEventListener('DOMContentLoaded', function() {
         }, 4000);
     }
 
-    // fetch('http://localhost:3000/menu')
-    //     .then(data => data.json())
-    //     .then(res => console.log(res));
+    
+    // Slider
+
+    const slides = document.querySelectorAll('.offer__slide'),
+          prev = document.querySelector('.offer__slider-prev'),
+          next = document.querySelector('.offer__slider-next'),
+          current = document.querySelector('#current');
+          document.querySelector('#total').textContent = getZero(slides.length);
+
+    let slideIndex = 1;
+    // console.log(slides);
+
+    showSlides();
+
+    function showSlides() {
+        // if(n > slides.length || n < 1) {
+        //     // error
+        // } else {
+        //     // success
+        // }
+
+
+
+
+        // int num = 1;
+        //   if(num >= 4 || num < 1) {
+        //     std::cout << "error!\n";    
+        //   } else {
+        //     std::cout << "true!\n";    
+        //   }
+    
+        // if(num <= 4 && num >= 1) {
+        //     std::cout << "true!\n";    
+        //   } else {
+        //     std::cout << "error!\n";    
+        // }
+
+
+
+
+
+        if(slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+
+        if(slideIndex < 1) {
+            slideIndex = slides.length; 
+        }
+
+        slides.forEach(slide => slide.classList.add('hide'));
+
+        slides[slideIndex - 1].classList.add('show');
+        slides[slideIndex - 1].classList.remove('hide');
+
+        current.textContent = getZero(slideIndex);
+
+    }
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    prev.addEventListener('click', () => {
+        plusSlides(-1);
+    });
+
+    next.addEventListener('click', () => {
+        plusSlides(1);
+    });
 
 });
