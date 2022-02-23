@@ -222,6 +222,12 @@ window.addEventListener('DOMContentLoaded', () => {
             data.data.forEach(({img, altimg, title, descr, price}) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
+        })
+        .catch(err => {
+            const error = document.createElement('div');
+            error.style.textAlign = "center";
+            error.textContent = "NETWORK ERROR! can't get the info about menu :("
+            document.querySelector(".menu .menu__field").append(error);
         });
 
 
@@ -337,66 +343,122 @@ window.addEventListener('DOMContentLoaded', () => {
           next = document.querySelector('.offer__slider-next'),
           current = document.querySelector('#current');
           document.querySelector('#total').textContent = getZero(slides.length);
+          
+    const slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+          slidesField = document.querySelector('.offer__slider-inner'),
+          width = window.getComputedStyle(slidesWrapper).width;
 
     let slideIndex = 1;
-    // console.log(slides);
+    let offset = 0;
+    current.textContent = getZero(slideIndex);
 
-    showSlides();
+    slidesField.style.width = 100 * slides.length + "%";
+    slidesField.style.display = "flex";
+    slidesField.style.transition = "all 0.5s";
 
-    function showSlides() {
-        // if(n > slides.length || n < 1) {
-        //     // error
-        // } else {
-        //     // success
-        // }
+    slidesWrapper.style.overflow = "hidden";
 
-
-
-
-        // int num = 1;
-        //   if(num >= 4 || num < 1) {
-        //     std::cout << "error!\n";    
-        //   } else {
-        //     std::cout << "true!\n";    
-        //   }
-    
-        // if(num <= 4 && num >= 1) {
-        //     std::cout << "true!\n";    
-        //   } else {
-        //     std::cout << "error!\n";    
-        // }
+    slides.forEach(slide => {
+        slide.style.width = width;
+    });
 
 
+    next.addEventListener('click', () => {
+        if(offset == +width.slice(0, width.length - 2) * (slides.length - 1)) { // 650px
+            offset = 0;
+        } else {
+            offset += +width.slice(0, width.length - 2);
+        }
 
+        slidesField.style.transform = `translateX(${-offset}px)`;
 
-
-        if(slideIndex > slides.length) {
+        if(slideIndex >= slides.length) {
             slideIndex = 1;
+        } else {
+            slideIndex++;
         }
-
-        if(slideIndex < 1) {
-            slideIndex = slides.length; 
-        }
-
-        slides.forEach(slide => slide.classList.add('hide'));
-
-        slides[slideIndex - 1].classList.add('show');
-        slides[slideIndex - 1].classList.remove('hide');
 
         current.textContent = getZero(slideIndex);
 
-    }
+    });
 
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
 
     prev.addEventListener('click', () => {
-        plusSlides(-1);
+        if(offset == 0) { // 650px
+            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+        } else {
+            offset -= +width.slice(0, width.length - 2);
+        }
+
+        slidesField.style.transform = `translateX(${-offset}px)`;
+
+        if(slideIndex <= 1) {
+            slideIndex = slides.length; 
+        } else {
+            slideIndex--;
+        }
+
+        current.textContent = getZero(slideIndex);
+
     });
 
-    next.addEventListener('click', () => {
-        plusSlides(1);
-    });
+
+    // showSlides();
+
+    // function showSlides() {
+    //     // if(n > slides.length || n < 1) {
+    //     //     // error
+    //     // } else {
+    //     //     // success
+    //     // }
+
+
+
+
+    //     // int num = 1;
+    //     //   if(num > 4 || num < 1) {
+    //     //     std::cout << "error!\n";    
+    //     //   } else {
+    //     //     std::cout << "true!\n";    
+    //     //   }
+    
+    //     // if(num <= 4 && num >= 1) {
+    //     //     std::cout << "true!\n";    
+    //     //   } else {
+    //     //     std::cout << "error!\n";    
+    //     // }
+
+
+
+
+
+    //     if(slideIndex > slides.length) {
+    //         slideIndex = 1;
+    //     }
+
+    //     if(slideIndex < 1) {
+    //         slideIndex = slides.length; 
+    //     }
+
+    //     slides.forEach(slide => slide.classList.add('hide'));
+
+    //     slides[slideIndex - 1].classList.add('show');
+    //     slides[slideIndex - 1].classList.remove('hide');
+
+    //     current.textContent = getZero(slideIndex);
+
+    // }
+
+    // function plusSlides(n) {
+    //     showSlides(slideIndex += n);
+    // }
+
+    // prev.addEventListener('click', () => {
+    //     plusSlides(-1);
+    // });
+
+    // next.addEventListener('click', () => {
+    //     plusSlides(1);
+    // });
 
 });
