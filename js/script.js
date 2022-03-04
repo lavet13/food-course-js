@@ -349,7 +349,8 @@ window.addEventListener('DOMContentLoaded', () => {
           
     const slidesWrapper = document.querySelector('.offer__slider-wrapper'),
           slidesField = document.querySelector('.offer__slider-inner'),
-          width = slidesWrapper.getBoundingClientRect().width;
+          width = window.getComputedStyle(slidesWrapper).width;
+
 
     let slideIndex = 1;
     let offset = 0;
@@ -362,7 +363,7 @@ window.addEventListener('DOMContentLoaded', () => {
     slidesWrapper.style.overflow = "hidden";
 
     slides.forEach(slide => {
-        slide.style.width = `${width}px`;
+        slide.style.width = width;
     });
 
     slider.style.position = 'relative';
@@ -412,11 +413,15 @@ window.addEventListener('DOMContentLoaded', () => {
         dots.push(dot);
     }
 
+    function deleteNotDigits(str) {
+        return +str.replace(/\D/g, '');
+    }
+
     next.addEventListener('click', () => {
-        if(offset == width * (slides.length - 1)) { // 650px
+        if(offset == deleteNotDigits(width) * (slides.length - 1)) { // 650px
             offset = 0;
         } else {
-            offset += width;
+            offset += deleteNotDigits(width);
         }
 
         slidesField.style.transform = `translateX(${-offset}px)`;
@@ -437,9 +442,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     prev.addEventListener('click', () => {
         if(offset == 0) {
-            offset = width * (slides.length - 1);
+            offset = deleteNotDigits(width) * (slides.length - 1);
         } else {
-            offset -= width;
+            offset -= deleteNotDigits(width);
         }
 
         slidesField.style.transform = `translateX(${-offset}px)`;
@@ -460,7 +465,7 @@ window.addEventListener('DOMContentLoaded', () => {
     dots.forEach(dot => {
         dot.addEventListener('click', event => {
             slideIndex = dot.dataset.slideTo;
-            offset = width * (slideIndex - 1);
+            offset = deleteNotDigits(width) * (slideIndex - 1);
             slidesField.style.transform = `translateX(${-offset}px)`;
             dots.forEach(dot => dot.style.opacity = '.5');
             dot.style.opacity = '1';
