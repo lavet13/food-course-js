@@ -1,14 +1,17 @@
-function slider() {
+import {getZero} from './timer';
+
+
+function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
         
-    const slides = document.querySelectorAll('.offer__slide'),
-          slider = document.querySelector('.offer__slider'),
-          prev = document.querySelector('.offer__slider-prev'),
-          next = document.querySelector('.offer__slider-next'),
-          current = document.querySelector('#current');
-          document.querySelector('#total').textContent = getZero(slides.length);
+    const slides = document.querySelectorAll(slide),
+          slider = document.querySelector(container),
+          prev = document.querySelector(prevArrow),
+          next = document.querySelector(nextArrow),
+          current = document.querySelector(currentCounter);
+          document.querySelector(totalCounter).textContent = getZero(slides.length);
           
-    const slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-          slidesField = document.querySelector('.offer__slider-inner'),
+    const slidesWrapper = document.querySelector(wrapper),
+          slidesField = document.querySelector(field),
           width = window.getComputedStyle(slidesWrapper).width;
 
 
@@ -135,4 +138,4 @@ function slider() {
 
 }
 
-module.exports = slider;
+export default slider;

@@ -1,6 +1,13 @@
-function timer() {
-    
-    const deadline = '2022-02-11';
+function getZero(num) {
+    if (num >= 0 && num < 10) { 
+        return '0' + num;
+    }
+
+    return num;
+}
+
+
+function timer(id, deadline) {
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -23,14 +30,6 @@ function timer() {
         hours.innerHTML = 0;
         minutes.innerHTML = 0;
         seconds.innerHTML = 0;
-    }
-
-    function getZero(num) {
-        if (num >= 0 && num < 10) { 
-            return '0' + num;
-        }
-
-        return num;
     }
 
     function setClock(selector, endtime) {
@@ -59,8 +58,10 @@ function timer() {
         }
     }
 
-    setClock('.timer', deadline);
+    setClock(id, deadline);
 
 }
 
-module.exports = timer;
+export default timer;
+
+export {getZero};

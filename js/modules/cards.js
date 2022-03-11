@@ -1,3 +1,6 @@
+import {get} from '../../node_modules/axios/lib/axios';
+
+
 function cards() {
     
     class MenuCard {
@@ -41,9 +44,9 @@ function cards() {
         }
     }
 
-    const axios = require('axios').default;
 
-    axios.get('http://localhost:3000/menu')
+
+        get('http://localhost:3000/menu')
         .then(data => {
             // console.log(data);
             data.data.forEach(({img, altimg, title, descr, price}) => {
@@ -59,4 +62,4 @@ function cards() {
         });
 }
 
-module.exports = cards;
+export default cards;
