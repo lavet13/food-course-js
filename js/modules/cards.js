@@ -1,5 +1,4 @@
-import {get} from '../../node_modules/axios/lib/axios';
-
+import {getResource} from '../services/services';
 
 function cards() {
     
@@ -45,16 +44,16 @@ function cards() {
     }
 
 
+    
 
-        get('http://localhost:3000/menu')
+    getResource('http://localhost:3000/menu')
         .then(data => {
             // console.log(data);
-            data.data.forEach(({img, altimg, title, descr, price}) => {
+            data.forEach(({img, altimg, title, descr, price}) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
         })
         .catch(err => {
-            // maybe what if u add some err condition
             const error = document.createElement('div');
             error.style.textAlign = "center";
             error.textContent = "NETWORK ERROR! can't get the info about menu :(";

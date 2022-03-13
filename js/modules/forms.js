@@ -39,7 +39,7 @@ function forms(formSelector, modalTimerId) {
                 showThanksModal(message.success);
                 statusMessage.remove();
             })
-            .catch(() => {
+            .catch(err => {
                 showThanksModal(message.failure);
             }).finally(() => {
                 form.reset();

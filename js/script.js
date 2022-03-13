@@ -13,7 +13,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 300000);
 
-    tabs('.tabheader__item', '.tabcontent', '.tabheader__items', 'tabheader__item_active');
+    tabs({
+        tabsSelector: '.tabheader__item',
+        tabsContentSelector: '.tabcontent',
+        tabsParentSelector: '.tabheader__items',
+        activeClass: 'tabheader__item_active'
+    });
+
     modal('[data-modal]', '.modal', modalTimerId);
     timer('.timer', '2022-12-16');
     cards();
@@ -31,45 +37,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     
-
-
-    
-    // class HttpError extends Error {
-    //     constructor(response) {
-    //         super(`Could not fetch ${response.url}, status: ${response.status}`);
-    //         this.name = "HttpError";
-    //         this.response = response;
-    //     }
-    // }
-
-    // const getResource = async (url) => {
-    //     const res = await fetch(url);
-
-    //     if(!res.ok) {
-    //        throw new HttpError(res);
-    //     }
-
-    //     return await res.json();
-    // };
-
-    // getResource('http://localhost:3000/menu')
-    //     .then(data => {
-    //         data.forEach(({img, altimg, title, descr, price}) => {
-    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-    //         });
-    //     }); 
-
-
-    
-
-
-
-
-
-
-
-
-
 
     // getResource('http://localhost:3000/menu')
     //     .then(data => createCard(data));

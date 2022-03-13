@@ -7,7 +7,31 @@ const postData = async (url, data) => {
         body: data
     });
 
+    if(!res.ok) {
+        throw new HttpError(res);
+    }
+
     return await res.json();
 };
 
-export {postData};
+class HttpError extends Error {
+    constructor(response) {
+        super(`Could not fetch ${response.url}, status: ${response.status}`);
+        this.name = "HttpError";
+        this.response = response;
+    }
+}
+
+const getResource = async (url) => {
+    const res = await fetch(url);
+
+    if(!res.ok) {
+        throw new HttpError(res);
+    }
+
+    return await res.json();
+};
+
+
+
+export {postData, getResource};

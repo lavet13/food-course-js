@@ -1,4 +1,4 @@
-function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass) {
+function tabs({tabsSelector, tabsContentSelector, tabsParentSelector, activeClass}) {
     
 	let tabs = document.querySelectorAll(tabsSelector),
     tabsContent = document.querySelectorAll(tabsContentSelector),
