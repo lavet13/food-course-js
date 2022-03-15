@@ -5,16 +5,29 @@
   "main": "index.js",
   "scripts": {
     "json-server-db": "json-server db.json",
-    "webpack": "npx webpack"
+    "webpack": "npx webpack",
+    "start": "npm-run-all --parallel json-server-db webpack"
   },
   "author": "",
   "license": "ISC",
+  "browserslist": [
+    "> 1%"
+  ],
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.7",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "core-js": "^3.21.1",
     "json-server": "^0.17.0",
+    "npm-run-all": "^4.1.5",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
-    "axios": "^0.26.0"
+    "@babel/polyfill": "^7.12.1",
+    "axios": "^0.26.0",
+    "es6-promise": "^4.2.8",
+    "nodelist-foreach-polyfill": "^1.2.0"
   }
 }
