@@ -25,7 +25,7 @@ function timer(id, deadline) {
         };
     }
 
-    function clearClock(days, hours, minutes, seconds) {
+    function clearClock({days, hours, minutes, seconds}) {
         days.innerHTML = 0;
         hours.innerHTML = 0;
         minutes.innerHTML = 0;
@@ -48,7 +48,7 @@ function timer(id, deadline) {
 
             if (t.total <= 0) {
                 clearInterval(timeInterval);
-                clearClock(days, hours, minutes, seconds);
+                clearClock(t);
             } else {
                 days.innerHTML = getZero(t.days);
                 hours.innerHTML = getZero(t.hours);

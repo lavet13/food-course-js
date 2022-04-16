@@ -1,4 +1,4 @@
-import {getResource} from '../services/services';
+import {getResource, HttpError} from '../services/services';
 
 function cards() {
     
@@ -44,21 +44,25 @@ function cards() {
     }
 
 
+    async function getCards() {
+        try {
+            const data = await getResource('http://localhost:3000/menu');
     
-
-    getResource('http://localhost:3000/menu')
-        .then(data => {
-            // console.log(data);
             data.forEach(({img, altimg, title, descr, price}) => {
                 new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
             });
-        })
-        .catch(err => {
-            const error = document.createElement('div');
-            error.style.textAlign = "center";
-            error.textContent = "NETWORK ERROR! can't get the info about menu :(";
-            document.querySelector(".menu .menu__field").append(error);
-        });
+        } catch(err) {
+            if(err instanceof HttpError) {
+                const error = document.createElement('div');
+                error.style.textAlign = "center";
+                error.textContent = `${err.message}`;
+                document.querySelector(".menu .menu__field").append(error);
+            }
+        }
+    }
+
+    getCards();
+    
 }
 
 export default cards;

@@ -34,4 +34,4 @@ const getResource = async (url) => {
 
 
 
-export {postData, getResource};
+export {postData, getResource, HttpError};
