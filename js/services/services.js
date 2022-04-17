@@ -7,11 +7,11 @@ const postData = async (url, data) => {
         body: data
     });
 
-    if(!res.ok) {
-        throw new HttpError(res);
+    if(res.status == 200) {
+        return await res.json();
     }
 
-    return await res.json();
+    throw new HttpError(res);
 };
 
 class HttpError extends Error {
@@ -25,11 +25,11 @@ class HttpError extends Error {
 const getResource = async (url) => {
     const res = await fetch(url);
 
-    if(!res.ok) {
-        throw new HttpError(res);
+    if(res.status == 200) {
+        return await res.json();
     }
 
-    return await res.json();
+    throw new HttpError(res);
 };
 
 

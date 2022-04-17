@@ -44,24 +44,26 @@ function cards() {
     }
 
 
-    async function getCards() {
-        try {
-            const data = await getResource('http://localhost:3000/menu');
-    
-            data.forEach(({img, altimg, title, descr, price}) => {
-                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-            });
-        } catch(err) {
-            if(err instanceof HttpError) {
-                const error = document.createElement('div');
-                error.style.textAlign = "center";
-                error.textContent = `${err.message}`;
-                document.querySelector(".menu .menu__field").append(error);
-            }
-        }
-    }
 
-    getCards();
+    getResource('http://localhost:3000/menu')
+    .then(data => {
+        data.forEach(({img, altimg, title, descr, price}) => {
+            new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+        });
+    })
+    .catch(err => {
+        if(err instanceof HttpError) {
+            const error = document.createElement('div');
+            error.style.textAlign = "center";
+            error.textContent = `${err.message}`;
+            document.querySelector(".menu .menu__field").append(error);
+        } else {
+            const error = document.createElement('div');
+            error.style.textAlign = "center";
+            error.textContent = `${err.message}`;
+            document.querySelector(".menu .menu__field").append(error);
+        }
+    });
     
 }
 

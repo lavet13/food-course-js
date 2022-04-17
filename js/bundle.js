@@ -183,30 +183,30 @@ function cards() {
 
   }
 
-  async function getCards() {
-    try {
-      const data = await (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/menu');
-      data.forEach(_ref => {
-        let {
-          img,
-          altimg,
-          title,
-          descr,
-          price
-        } = _ref;
-        new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-      });
-    } catch (err) {
-      if (err instanceof _services_services__WEBPACK_IMPORTED_MODULE_0__.HttpError) {
-        const error = document.createElement('div');
-        error.style.textAlign = "center";
-        error.textContent = `${err.message}`;
-        document.querySelector(".menu .menu__field").append(error);
-      }
+  (0,_services_services__WEBPACK_IMPORTED_MODULE_0__.getResource)('http://localhost:3000/menu').then(data => {
+    data.forEach(_ref => {
+      let {
+        img,
+        altimg,
+        title,
+        descr,
+        price
+      } = _ref;
+      new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+    });
+  }).catch(err => {
+    if (err instanceof _services_services__WEBPACK_IMPORTED_MODULE_0__.HttpError) {
+      const error = document.createElement('div');
+      error.style.textAlign = "center";
+      error.textContent = `${err.message}`;
+      document.querySelector(".menu .menu__field").append(error);
+    } else {
+      const error = document.createElement('div');
+      error.style.textAlign = "center";
+      error.textContent = `${err.message}`;
+      document.querySelector(".menu .menu__field").append(error);
     }
-  }
-
-  getCards();
+  });
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (cards);
@@ -659,11 +659,11 @@ const postData = async (url, data) => {
     body: data
   });
 
-  if (!res.ok) {
-    throw new HttpError(res);
+  if (res.status == 200) {
+    return await res.json();
   }
 
-  return await res.json();
+  throw new HttpError(res);
 };
 
 class HttpError extends Error {
@@ -678,11 +678,11 @@ class HttpError extends Error {
 const getResource = async url => {
   const res = await fetch(url);
 
-  if (!res.ok) {
-    throw new HttpError(res);
+  if (res.status == 200) {
+    return await res.json();
   }
 
-  return await res.json();
+  throw new HttpError(res);
 };
 
 
