@@ -6,7 +6,8 @@
   "scripts": {
     "json-server-db": "json-server db.json",
     "webpack": "npx webpack",
-    "start": "npm-run-all --parallel json-server-db webpack"
+    "liveserver": "live-server",
+    "start": "npm-run-all --parallel json-server-db webpack liveserver"
   },
   "author": "",
   "license": "ISC",

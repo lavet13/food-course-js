@@ -39,7 +39,20 @@ window.addEventListener('DOMContentLoaded', () => {
     
 
     // getResource('http://localhost:3000/menu')
-    //     .then(data => createCard(data));
+    //     .then(data => createCard(data))
+    //     .catch(err => {
+    //     if(err instanceof HttpError) {
+    //         const error = document.createElement('div');
+    //         error.style.textAlign = "center";
+    //         error.textContent = `${err.message}`;
+    //         document.querySelector(".menu .menu__field").append(error);
+    //     } else {
+    //         const error = document.createElement('div');
+    //         error.style.textAlign = "center";
+    //         error.textContent = `${err.message}`;
+    //         document.querySelector(".menu .menu__field").append(error);
+    //     }
+    // });
 
     // function createCard(data) {
     //     data.forEach(({img, altimg, title, descr, price}) => {

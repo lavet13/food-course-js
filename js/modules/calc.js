@@ -58,6 +58,7 @@ function calc() {
         document.querySelector(parentSelector).addEventListener('click', function(e) {
             if(e.target.dataset.ratio && e.target != this) {
                 ratio = +e.target.dataset.ratio;
+                console.log(ratio);
                 localStorage.setItem('ratio', ratio);
             } else if(e.target.getAttribute('id') && e.target != this) {
                 sex = e.target.getAttribute('id');
