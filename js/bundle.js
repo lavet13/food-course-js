@@ -163,7 +163,7 @@ function cards() {
       const element = document.createElement('div');
 
       if (this.classes.length === 0) {
-        this.classes = "menu__item";
+        this.classes = 'menu__item';
         element.classList.add(this.classes);
       } else {
         this.classes.forEach(className => element.classList.add(className));
@@ -198,14 +198,14 @@ function cards() {
   }).catch(err => {
     if (err instanceof _services_services__WEBPACK_IMPORTED_MODULE_0__.HttpError) {
       const error = document.createElement('div');
-      error.style.textAlign = "center";
+      error.style.textAlign = 'center';
       error.textContent = `${err.message}`;
-      document.querySelector(".menu .menu__field").append(error);
+      document.querySelector('.menu .menu__field').append(error);
     } else {
       const error = document.createElement('div');
-      error.style.textAlign = "center";
+      error.style.textAlign = 'center';
       error.textContent = `${err.message}`;
-      document.querySelector(".menu .menu__field").append(error);
+      document.querySelector('.menu .menu__field').append(error);
     }
   });
 }
@@ -230,29 +230,30 @@ __webpack_require__.r(__webpack_exports__);
 function forms(formSelector, modalTimerId) {
   const forms = document.querySelectorAll(formSelector);
   const message = {
-    loading: "img/form/spinner.svg",
-    success: "Спасибо! Скоро мы с вами свяжемся",
-    failure: "Что-то пошло не так..."
+    loading: 'img/form/spinner.svg',
+    success: 'Спасибо! Скоро мы с вами свяжемся',
+    failure: 'Что-то пошло не так...'
   };
-  forms.forEach(item => {
-    bindPostData(item);
+  forms.forEach(form => {
+    bindPostData(form);
   });
 
   function bindPostData(form) {
-    form.addEventListener("submit", e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      let statusMessage = document.createElement("img");
+      let statusMessage = document.createElement('img');
       statusMessage.src = message.loading;
       statusMessage.style.cssText = `
-                display: block;
-                margin: 0 auto;
-            `;
-      form.insertAdjacentElement("afterend", statusMessage);
+                  display: block;
+                  margin: 0 auto;
+              `;
+      form.insertAdjacentElement('afterend', statusMessage);
       const formData = new FormData(form);
       const json = JSON.stringify(Object.fromEntries(formData.entries()));
-      (0,_services_services__WEBPACK_IMPORTED_MODULE_1__.postData)("http://localhost:3000/requests", json).then(data => {
-        console.log(data);
-        console.log(`is Array? - ${Array.isArray(data)}`);
+      console.log(json);
+      (0,_services_services__WEBPACK_IMPORTED_MODULE_1__.postData)('http://localhost:3000/requests', json).then(data => {
+        console.log(data); //   console.log(`is Array? - ${Array.isArray(data)}`);
+
         showThanksModal(message.success);
         statusMessage.remove();
       }).catch(err => {
@@ -264,23 +265,23 @@ function forms(formSelector, modalTimerId) {
   }
 
   function showThanksModal(message) {
-    const prevModalDialog = document.querySelector(".modal__dialog");
-    prevModalDialog.classList.add("hide");
-    (0,_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)(".modal", modalTimerId);
-    const thanksModal = document.createElement("div");
-    thanksModal.classList.add("modal__dialog");
+    const prevModalDialog = document.querySelector('.modal__dialog');
+    prevModalDialog.classList.add('hide');
+    (0,_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)('.modal', modalTimerId);
+    const thanksModal = document.createElement('div');
+    thanksModal.classList.add('modal__dialog');
     thanksModal.innerHTML = `
             <div class="modal__content">
                 <div class="modal__close" data-close>×</div>
                 <div class="modal__title">${message}</div>
             </div>
         `;
-    document.querySelector(".modal").append(thanksModal);
+    document.querySelector('.modal').append(thanksModal);
     setTimeout(() => {
       thanksModal.remove();
-      prevModalDialog.classList.add("show");
-      prevModalDialog.classList.remove("hide");
-      (0,_modal__WEBPACK_IMPORTED_MODULE_0__.closeModal)(".modal");
+      prevModalDialog.classList.add('show');
+      prevModalDialog.classList.remove('hide');
+      (0,_modal__WEBPACK_IMPORTED_MODULE_0__.closeModal)('.modal');
     }, 4000);
   }
 }
@@ -327,12 +328,12 @@ function modal(triggerSelector, modalSelector, modalTimerId) {
     btn.addEventListener('click', () => openModal(modalSelector, modalTimerId));
   });
   modal.addEventListener('click', e => {
-    if (e.target === modal || e.target.getAttribute('data-close') == "") {
+    if (e.target === modal || e.target.getAttribute('data-close') == '') {
       closeModal(modalSelector);
     }
   });
   document.addEventListener('keydown', e => {
-    if (e.code === "Escape" && modal.classList.contains('show')) {
+    if (e.code === 'Escape' && modal.classList.contains('show')) {
       closeModal(modalSelector);
     }
   });
